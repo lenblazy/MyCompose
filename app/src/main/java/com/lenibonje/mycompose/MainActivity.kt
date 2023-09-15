@@ -41,8 +41,8 @@ fun ColumnScope.CustomItem(weight: Float, color: Color=MaterialTheme.colorScheme
     Surface(
         modifier = Modifier
             .width(200.dp)
-            .weight(3f),
-        color = MaterialTheme.colorScheme.secondary
+            .weight(weight),
+        color = color
     ) { }
 }
 
