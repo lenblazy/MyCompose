@@ -12,6 +12,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.SpanStyle
@@ -19,6 +20,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -74,7 +76,7 @@ fun CustomTextB() {
             withStyle(ParagraphStyle(textAlign = TextAlign.Center)) {
                 withStyle(
                     style = SpanStyle(
-                        color = MaterialTheme.colorScheme.primary,
+                        color = Color.Blue,
                         fontSize = 30.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -89,10 +91,19 @@ fun CustomTextB() {
     )
 }
 
+@Composable
+fun CustomTextC() {
+    Text(
+        text = "Hello Word".repeat(20),
+        maxLines = 2,
+        overflow = TextOverflow.Ellipsis
+    )
+}
+
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     MyComposeTheme {
-        CustomTextB()
+        CustomTextC()
     }
 }
