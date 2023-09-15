@@ -41,32 +41,20 @@ fun GreetingPreview() {
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceAround
         ) {
             Surface(
                 modifier = Modifier
                     .width(200.dp)
-                    .height(50.dp),
-                color = MaterialTheme.colorScheme.primary
+                    .weight(3f),
+                color = MaterialTheme.colorScheme.secondary
             ) { }
             Surface(
                 modifier = Modifier
                     .width(200.dp)
-                    .height(50.dp),
+                    .weight(2f),
                 color = MaterialTheme.colorScheme.primary
             ) { }
-            Surface(
-                modifier = Modifier
-                    .width(200.dp)
-                    .height(50.dp),
-                color = MaterialTheme.colorScheme.primary
-            ) { }
-            Surface(
-                modifier = Modifier
-                    .width(200.dp)
-                    .height(50.dp),
-                color = MaterialTheme.colorScheme.primary
-            ) { }
+
         }
     }
 }
