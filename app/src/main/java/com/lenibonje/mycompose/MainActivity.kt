@@ -4,9 +4,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.selection.DisableSelection
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -100,10 +103,31 @@ fun CustomTextC() {
     )
 }
 
+@Composable
+fun CustomTextD() {
+    Column {
+        SelectionContainer {
+            Text(
+                text = "Hello Word"
+            )
+            DisableSelection {
+                Text(
+                    text = "Hello Word"
+                )
+            }
+
+            Text(
+                text = "Hello Word"
+            )
+        }
+    }
+
+}
+
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     MyComposeTheme {
-        CustomTextC()
+        CustomTextD()
     }
 }
