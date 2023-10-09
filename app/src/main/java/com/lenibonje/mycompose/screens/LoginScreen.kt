@@ -1,4 +1,4 @@
-package com.lenibonje.mycompose
+package com.lenibonje.mycompose.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -10,13 +10,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
-import androidx.navigation.NavGraph
-import androidx.navigation.compose.rememberNavController
+import com.lenibonje.mycompose.navigation.Screen
 
 @Composable
-fun DetailScreen(
+fun LoginScreen(
     navController: NavController
 ) {
     Box(
@@ -24,21 +22,13 @@ fun DetailScreen(
         contentAlignment = Alignment.Center
     ) {
         Text(
-            modifier = Modifier.clickable { navController.navigate(route = Screen.Home.route){
-                popUpTo(Screen.Home.route) {
-                    inclusive = true
-                }
-            } },
-            text = "Detail Screen",
-            color = Color.Red,
+            modifier = Modifier.clickable {
+                navController.navigate(Screen.Detail.passId(5))
+            },
+            text = "Login Screen",
+            color = Color.Blue,
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
             fontWeight = FontWeight.Bold
         )
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DetailsScreenPreview() {
-    DetailScreen(rememberNavController())
 }
