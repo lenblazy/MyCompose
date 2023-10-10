@@ -1,15 +1,14 @@
 package com.lenibonje.mycompose.navigation
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavType
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
-import androidx.navigation.navArgument
-import com.lenibonje.mycompose.screens.DetailScreen
+import com.lenibonje.mycompose.AnimatedSplashScreen
 import com.lenibonje.mycompose.screens.HomeScreen
-import com.lenibonje.mycompose.screens.LoginScreen
-import com.lenibonje.mycompose.screens.SignUpScreen
+import com.lenibonje.mycompose.screens.SplashScreen
 
 @Composable
 fun SetUpNavGraph(
@@ -17,22 +16,17 @@ fun SetUpNavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Home.route,
-        route = ROOT_ROUTE
+        startDestination = Screen.Splash.route,
     ) {
-        composable(Screen.Home.route) {
-            HomeScreen(navController)
-        }
-        composable(
-            route = Screen.Detail.route,
-            arguments = listOf(navArgument(name = DETAIL_ARG_KEY) {
-                type = NavType.IntType
-            })
-        ) {
-            DetailScreen(navController)
+        composable(Screen.Splash.route) {
+            AnimatedSplashScreen(navController = navController)
         }
 
-        authNavGraph(navController = navController)
+        composable(Screen.Home.route) {
+            Box(modifier = Modifier.fillMaxSize())
+        }
+
+
 
     }
 }
