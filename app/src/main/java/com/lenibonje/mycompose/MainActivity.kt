@@ -18,8 +18,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyComposeTheme {
                 // A surface container using the 'background' color from the theme
-                navController = rememberNavController()
-                SetUpNavGraph(navController = navController)
+//                navController = rememberNavController()
+//                SetUpNavGraph(navController = navController)
+                MainScreen()
             }
         }
     }
