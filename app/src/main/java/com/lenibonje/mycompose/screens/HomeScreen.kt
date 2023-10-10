@@ -22,9 +22,6 @@ fun HomeScreen(
         contentAlignment = androidx.compose.ui.Alignment.Center
     ) {
         Text(
-            modifier = Modifier.clickable {
-                navController.navigate(Screen.Detail.passId(5))
-            },
             text = "Home Screen",
             color = MaterialTheme.colorScheme.primary,
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
