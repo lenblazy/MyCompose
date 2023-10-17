@@ -14,7 +14,6 @@ interface UnsplashRemoteKeysDao {
     @Insert(onConflict = androidx.room.OnConflictStrategy.REPLACE)
     suspend fun addAllRemoteKeys(remoteKeys: List<UnsplashRemoteKeys>)
 
-
     @Query("DELETE FROM tbl_unsplash_remote_keys")
     suspend fun deleteAllRemoteKeys()
 
