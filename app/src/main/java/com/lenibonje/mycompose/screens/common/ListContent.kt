@@ -48,14 +48,20 @@ import com.lenibonje.mycompose.model.User
 import com.lenibonje.mycompose.model.UserLinks
 import com.lenibonje.mycompose.ui.theme.HeartRed
 
-@OptIn(ExperimentalCoilApi::class)
+@ExperimentalCoilApi
 @Composable
-fun ListContent(itemList: LazyPagingItems<UnSplashImage>) {
+fun ListContent(items: LazyPagingItems<UnSplashImage>) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(all = 12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
+        items(
+            items = items,
+            key = { unsplashImage -> unsplashImage.id }
+        ) { unsplashImage ->
+            unsplashImage?.let { UnsplashItem(unsplashImage = unsplashImage) }
+        }
 
     }
 }
