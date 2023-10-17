@@ -1,36 +1,39 @@
 package com.lenibonje.mycompose.screens.home
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import android.annotation.SuppressLint
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.compose.collectAsLazyPagingItems
+import coil.annotation.ExperimentalCoilApi
+import com.lenibonje.mycompose.navigation.Screen
+import com.lenibonje.mycompose.screens.common.ListContent
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalPagingApi::class, ExperimentalMaterial3Api::class, ExperimentalCoilApi::class)
 @Composable
 fun HomeScreen(
-    navController: NavController
+    navController: NavHostController,
+    homeViewModel: HomeViewModel = hiltViewModel()
 ) {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = androidx.compose.ui.Alignment.Center
-    ) {
-        Text(
-            text = "Home Screen",
-            color = MaterialTheme.colorScheme.primary,
-            fontSize = MaterialTheme.typography.titleLarge.fontSize,
-            fontWeight = FontWeight.Bold
-        )
-    }
-}
+    val getAllImages = homeViewModel.getAllImages.collectAsLazyPagingItems()
 
-@Preview(showBackground = true)
-@Composable
-fun HomeScreenPreview() {
-    HomeScreen(rememberNavController())
+    Scaffold(
+        topBar = {
+            HomeTopBar(
+                onSearchClicked = {
+                    navController.navigate(Screen.Search.route)
+                }
+            )
+        },
+        content = {
+            ListContent(items = getAllImages)
+        }
+    )
 }
 

@@ -2,25 +2,13 @@ package com.lenibonje.mycompose.screens.common
 
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.lazy.LazyItemScope
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,23 +45,34 @@ fun ListContent(items: LazyPagingItems<UnSplashImage>) {
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         items(
-            items = items,
-            key = { unsplashImage -> unsplashImage.id }
-        ) { unsplashImage ->
-            unsplashImage?.let { UnsplashItem(unsplashImage = unsplashImage) }
-        }
-
+            count = items.itemCount,
+            key = {},
+            contentType = {},
+            itemContent = {
+                UnsplashItem(unsplashImage = items[it]!!)
+            })
     }
 }
 
 @ExperimentalCoilApi
 @Composable
 fun UnsplashItem(unsplashImage: UnSplashImage) {
-    val painter = rememberImagePainter(data = unsplashImage.urls.regularImage) {
-        crossfade(durationMillis = 1000)
-        error(R.drawable.ic_placeholder)
-        placeholder(R.drawable.ic_placeholder)
-    }
+    val painter = rememberImagePainter(
+        data = unsplashImage.urls.regularImage,
+        builder = {
+            placeholder(R.drawable.ic_launcher_foreground)
+            error(R.drawable.ic_launcher_foreground)
+            crossfade(1000)
+//            transformations(
+//                GrayscaleTransformation(),
+////                    CircleCropTransformation(),
+//                BlurTransformation(LocalContext.current),
+//                RoundedCornersTransformation(50f)
+//            )
+        }
+
+    )
+
     val context = LocalContext.current
     Box(
         modifier = Modifier

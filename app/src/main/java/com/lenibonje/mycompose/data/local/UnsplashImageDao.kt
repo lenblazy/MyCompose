@@ -14,7 +14,7 @@ interface UnsplashImageDao {
     suspend fun addImages(images: List<UnSplashImage>)
 
     @Query("SELECT * FROM tbl_unsplash_image")
-    suspend fun getAllImages(): PagingSource<Int, UnSplashImage>
+    fun getAllImages(): PagingSource<Int, UnSplashImage>
 
     @Query("DELETE FROM tbl_unsplash_image")
     suspend fun deleteAllImages()

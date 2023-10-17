@@ -6,6 +6,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Urls(
-    @SerialName("regular")
-    val regularImage: String,
+    val regular: String,
 )
