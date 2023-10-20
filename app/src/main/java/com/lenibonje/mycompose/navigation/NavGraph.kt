@@ -1,32 +1,28 @@
 package com.lenibonje.mycompose.navigation
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.lenibonje.mycompose.AnimatedSplashScreen
-import com.lenibonje.mycompose.screens.HomeScreen
-import com.lenibonje.mycompose.screens.SplashScreen
+import androidx.paging.ExperimentalPagingApi
+import coil.annotation.ExperimentalCoilApi
+import com.lenibonje.mycompose.screens.home.HomeScreen
+import com.lenibonje.mycompose.screens.search.SearchScreen
 
+@OptIn(ExperimentalPagingApi::class, ExperimentalMaterial3Api::class, ExperimentalCoilApi::class)
 @Composable
 fun SetUpNavGraph(
     navController: androidx.navigation.NavHostController
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Splash.route,
+        startDestination = Screen.Home.route
     ) {
-        composable(Screen.Splash.route) {
-            AnimatedSplashScreen(navController = navController)
+        composable(route = Screen.Home.route){
+            HomeScreen(navController = navController)
         }
-
-        composable(Screen.Home.route) {
-            Box(modifier = Modifier.fillMaxSize())
+        composable(route = Screen.Search.route){
+            SearchScreen(navController = navController)
         }
-
-
-
     }
 }
