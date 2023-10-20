@@ -68,6 +68,7 @@ fun WelcomeScreen(
             modifier = Modifier.weight(1f),
             pagerState = pagerState
         ) {
+            navController.popBackStack()
             navController.navigate(Screen.Home.route)
         }
     }
@@ -93,7 +94,7 @@ fun PagerScreen(onBoardingPage: OnBoardingPage) {
             modifier = Modifier
                 .fillMaxWidth(),
             text = onBoardingPage.title,
-            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+            fontSize = MaterialTheme.typography.titleLarge.fontSize,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )
@@ -103,7 +104,7 @@ fun PagerScreen(onBoardingPage: OnBoardingPage) {
                 .padding(horizontal = 40.dp)
                 .padding(top = 20.dp),
             text = onBoardingPage.description,
-            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+            fontSize = MaterialTheme.typography.bodySmall.fontSize,
             fontWeight = FontWeight.Medium,
             textAlign = TextAlign.Center
         )

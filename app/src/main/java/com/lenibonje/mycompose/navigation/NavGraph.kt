@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.lenibonje.mycompose.AnimatedSplashScreen
+import com.lenibonje.mycompose.screens.HomeScreen
 import com.lenibonje.mycompose.screens.WelcomeScreen
 
 @Composable
@@ -22,7 +23,7 @@ fun SetUpNavGraph(
         }
 
         composable(Screen.Home.route) {
-            Box(modifier = Modifier.fillMaxSize())
+            HomeScreen(navController = navController)
         }
 
 
