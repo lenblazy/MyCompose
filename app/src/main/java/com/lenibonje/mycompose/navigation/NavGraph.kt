@@ -7,8 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.lenibonje.mycompose.AnimatedSplashScreen
-import com.lenibonje.mycompose.screens.HomeScreen
-import com.lenibonje.mycompose.screens.SplashScreen
+import com.lenibonje.mycompose.screens.WelcomeScreen
 
 @Composable
 fun SetUpNavGraph(
@@ -16,10 +15,10 @@ fun SetUpNavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Splash.route,
+        startDestination = Screen.Welcome.route,
     ) {
-        composable(Screen.Splash.route) {
-            AnimatedSplashScreen(navController = navController)
+        composable(Screen.Welcome.route) {
+            WelcomeScreen(navController = navController)
         }
 
         composable(Screen.Home.route) {
