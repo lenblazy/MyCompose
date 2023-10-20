@@ -11,7 +11,9 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -20,15 +22,19 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideHttpClient(): OkHttpClient {
+    fun providesLoggingInterceptor(): HttpLoggingInterceptor {
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        return loggingInterceptor
+    }
+
+    @Provides
+    @Singleton
+    fun provideHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor { chain ->
-                val request = chain.request()
-                    .newBuilder()
-                    .addHeader("Authorization", "Client-ID ${BuildConfig.ACCESS_KEY}")
-                    .build()
-                chain.proceed(request)
-            }
+            .readTimeout(15, TimeUnit.SECONDS)
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .addInterceptor(interceptor)
             .build()
     }
 
@@ -40,11 +46,8 @@ object NetworkModule {
             ignoreUnknownKeys = true
         }
 
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(okHttpClient)
-            .addConverterFactory(json.asConverterFactory(contentType))
-            .build()
+        return Retrofit.Builder().baseUrl(BASE_URL).client(okHttpClient)
+            .addConverterFactory(json.asConverterFactory(contentType)).build()
     }
 
     @Provides

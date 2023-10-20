@@ -1,5 +1,6 @@
 package com.lenibonje.mycompose.data.paging
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -25,6 +26,7 @@ class UnsplashRemoteMediator(
         state: PagingState<Int, UnSplashImage>
     ): MediatorResult {
         return try {
+            Log.d("HAHAHA", "load CALLED: ")
             val currentPage = when (loadType) {
                 LoadType.REFRESH -> {
                     val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
@@ -51,6 +53,7 @@ class UnsplashRemoteMediator(
             }
 
             val response = unsplashApi.getAllImages(page = currentPage, perPage = ITEMS_PER_PAGE)
+            Log.d("HAHAHA", "load: response: $response")
             val endOfPaginationReached = response.isEmpty()
 
             val prevPage = if (currentPage == 1) null else currentPage - 1
@@ -73,6 +76,8 @@ class UnsplashRemoteMediator(
             }
             MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (e: Exception) {
+            Log.d("HAHAHA", "EXCEPTION KWA load CALLED: ${e.message}")
+
             return MediatorResult.Error(e)
         }
     }

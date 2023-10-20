@@ -8,6 +8,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyItemScope
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -44,13 +45,14 @@ fun ListContent(items: LazyPagingItems<UnSplashImage>) {
         contentPadding = PaddingValues(all = 12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        items(
-            count = items.itemCount,
-            key = {},
-            contentType = {},
-            itemContent = {
-                UnsplashItem(unsplashImage = items[it]!!)
-            })
+//        items(
+//            items = items,
+//            key = { unsplashImage ->
+//                unsplashImage.id
+//            }
+//        ) { unsplashImage ->
+//            unsplashImage?.let { UnsplashItem(unsplashImage = it) }
+//        }
     }
 }
 
