@@ -3,13 +3,16 @@ package com.lenibonje.mycompose.screens.common
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,19 +44,14 @@ import com.lenibonje.mycompose.ui.theme.HeartRed
 @Composable
 fun ListContent(items: LazyPagingItems<UnSplashImage>) {
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(all = 12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-//        items(
-//            items = items,
-//            key = { unsplashImage ->
-//                unsplashImage.id
-//            }
-//        ) { unsplashImage ->
-//            unsplashImage?.let { UnsplashItem(unsplashImage = it) }
-//        }
+        items(items.itemCount) {
+            UnsplashItem(unsplashImage = items[it]!!)
+        }
     }
+
 }
 
 @ExperimentalCoilApi
@@ -64,13 +62,7 @@ fun UnsplashItem(unsplashImage: UnSplashImage) {
         builder = {
             placeholder(R.drawable.ic_launcher_foreground)
             error(R.drawable.ic_launcher_foreground)
-            crossfade(1000)
-//            transformations(
-//                GrayscaleTransformation(),
-////                    CircleCropTransformation(),
-//                BlurTransformation(LocalContext.current),
-//                RoundedCornersTransformation(50f)
-//            )
+            crossfade(500)
         }
 
     )
