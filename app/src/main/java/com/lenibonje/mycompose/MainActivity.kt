@@ -3,6 +3,7 @@ package com.lenibonje.mycompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -58,6 +59,9 @@ fun Greeting() {
                 Text(text = "Item $it in section $section",
                     modifier = Modifier
                         .padding(12.dp)
+                        .animateItemPlacement(
+                            animationSpec = tween(durationMillis = 600),
+                        )
                 )
             }
         }
