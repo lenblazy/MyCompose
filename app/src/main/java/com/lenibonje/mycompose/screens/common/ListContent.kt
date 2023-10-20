@@ -58,7 +58,7 @@ fun ListContent(items: LazyPagingItems<UnSplashImage>) {
 @Composable
 fun UnsplashItem(unsplashImage: UnSplashImage) {
     val painter = rememberImagePainter(
-        data = unsplashImage.urls.regularImage,
+        data = unsplashImage.urls.regular,
         builder = {
             placeholder(R.drawable.ic_launcher_foreground)
             error(R.drawable.ic_launcher_foreground)
@@ -165,9 +165,9 @@ fun UnsplashImagePreview() {
     UnsplashItem(
         unsplashImage = UnSplashImage(
             id = "1",
-            urls = Urls(regularImage = ""),
+            urls = Urls(regular = ""),
             likes = 100,
-            user = User(username = "Stevdza-San", userLinks = UserLinks(html = ""))
+            user = User(username = "Stevdza-San", links = UserLinks(html = ""))
         )
     )
 }

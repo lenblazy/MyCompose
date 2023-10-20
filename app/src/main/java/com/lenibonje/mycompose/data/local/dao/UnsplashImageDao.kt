@@ -1,4 +1,4 @@
-package com.lenibonje.mycompose.data.local
+package com.lenibonje.mycompose.data.local.dao
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
@@ -14,11 +14,9 @@ interface UnsplashImageDao {
     fun getAllImages(): PagingSource<Int, UnSplashImage>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addImages(images: List<UnSplashImage>)
-
-
+    fun addImages(images: List<UnSplashImage>)
 
     @Query("DELETE FROM tbl_unsplash_image")
-    suspend fun deleteAllImages()
+    fun deleteAllImages()
 
 }
