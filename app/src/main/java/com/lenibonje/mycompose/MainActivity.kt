@@ -3,10 +3,13 @@ package com.lenibonje.mycompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardActions
@@ -47,6 +50,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
+import coil.transform.RoundedCornersTransformation
 import com.lenibonje.mycompose.navigation.SetUpNavGraph
 import com.lenibonje.mycompose.ui.theme.MyComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -158,6 +164,7 @@ fun CustomTextB() {
     )
 }
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun CustomTextC() {
     Text(
@@ -189,38 +196,72 @@ fun CustomTextD() {
 }
 
 @Composable
-fun SuperScriptText(
-    normalText: String,
-    superText: String
+fun CoilImage() {
+    Box(
+        modifier = Modifier
+            .height(150.dp)
+            .width(150.dp),
+        contentAlignment = Alignment.Center
+    ) {
 
-) {
-    Text(
-        buildAnnotatedString {
-            withStyle(
-                style = SpanStyle(
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize
+        val painter = rememberImagePainter(
+            data = "https://avatars.githubuserconsent.com/u/14994036?v=4",
+            builder = {
+                placeholder(R.drawable.ic_launcher_foreground)
+                error(R.drawable.ic_launcher_foreground)
+                crossfade(1000)
+                transformations(
+//                    GrayscaleTransformation(),
+//                    CircleCropTransformation(),
+//                    BlurTransformation(LocalContext.current),
+                    RoundedCornersTransformation(50f)
                 )
-            ) {
-                append(normalText)
             }
-            withStyle(
-                style = SpanStyle(
-                    fontSize = MaterialTheme.typography.bodySmall.fontSize,
-                    fontWeight = FontWeight.Normal,
-                    baselineShift = BaselineShift.Subscript,
 
+        )
+        val painterState = painter.state
+        Image(painter = painter, contentDescription = "Logo Image")
+//        if (painterState is ImagePainter.State.Loading){
+//            CircularProgressIndicator()
+//        }
+    }
+
+    @Composable
+    fun SuperScriptText(
+        normalText: String,
+        superText: String
+
+    ) {
+        Text(
+            buildAnnotatedString {
+                withStyle(
+                    style = SpanStyle(
+                        fontSize = MaterialTheme.typography.bodyMedium.fontSize
                     )
-            ) {
-                append(superText)
+                ) {
+                    append(normalText)
+                }
+                withStyle(
+                    style = SpanStyle(
+                        fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                        fontWeight = FontWeight.Normal,
+                        baselineShift = BaselineShift.Subscript,
+
+                        )
+                ) {
+                    append(superText)
+                }
             }
-        }
-    )
+        )
+
+    }
+
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     MyComposeTheme {
-        SuperScriptText("Lennox", "27")
+        CoilImage()
     }
 }
