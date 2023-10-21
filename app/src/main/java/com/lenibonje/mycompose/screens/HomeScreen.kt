@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.lenibonje.mycompose.Person
@@ -17,7 +18,8 @@ import com.lenibonje.mycompose.navigation.Screen
 
 @Composable
 fun HomeScreen(
-    navController: NavController
+    navController: NavController,
+    sharedViewModel: SharedViewModel
 ) {
     Box(
         modifier = Modifier
@@ -28,10 +30,7 @@ fun HomeScreen(
                     lastName = "Doe"
                 )
 
-                navController.currentBackStackEntry?.savedStateHandle?.set(
-                    key = "person",
-                    value = person
-                )
+                sharedViewModel.addPerson(person)
                 navController.navigate(Screen.DetailB.route)
             },
         contentAlignment = Center
@@ -52,6 +51,6 @@ fun HomeScreen(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(rememberNavController())
+    HomeScreen(rememberNavController(), viewModel())
 }
 
