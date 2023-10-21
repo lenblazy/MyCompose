@@ -21,4 +21,6 @@ sealed class Screen(val route: String) {
 //        }
     }
 
+    object DetailB: Screen(route = "detail_screen_b")
+
 }
