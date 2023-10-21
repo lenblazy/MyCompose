@@ -8,6 +8,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.lenibonje.mycompose.navigation.SetUpNavGraph
+import com.lenibonje.mycompose.screens.main.MainScreen
 import com.lenibonje.mycompose.ui.theme.MyComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,8 +19,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyComposeTheme {
                 // A surface container using the 'background' color from the theme
-                navController = rememberNavController()
-                SetUpNavGraph(navController = navController)
+//                navController = rememberNavController()
+//                SetUpNavGraph(navController = navController)
+                MainScreen()
             }
         }
     }
