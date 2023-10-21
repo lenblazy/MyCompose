@@ -1,34 +1,37 @@
 package com.lenibonje.mycompose.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
-import com.lenibonje.mycompose.Person
+import com.lenibonje.mycompose.WindowSize
 import com.lenibonje.mycompose.screens.DetailScreen
 import com.lenibonje.mycompose.screens.DetailScreenB
 import com.lenibonje.mycompose.screens.HomeScreen
-import com.lenibonje.mycompose.screens.LoginScreen
 import com.lenibonje.mycompose.screens.SharedViewModel
-import com.lenibonje.mycompose.screens.SignUpScreen
+import com.lenibonje.mycompose.screens.main.MainScreen
 
 @Composable
 fun SetUpNavGraph(
-    navController: androidx.navigation.NavHostController
+    navController: NavHostController,
+    windowSize: WindowSize
 ) {
 
     val sharedViewModel: SharedViewModel = viewModel()
 
     NavHost(
         navController = navController,
-        startDestination = Screen.Home.route,
+        startDestination = Screen.Main.route,
         route = ROOT_ROUTE
     ) {
+
+        composable(Screen.Main.route) {
+            MainScreen(windowSize = windowSize, navController = navController)
+        }
+
         composable(Screen.Home.route) {
             HomeScreen(navController, sharedViewModel)
         }
@@ -36,6 +39,8 @@ fun SetUpNavGraph(
         composable(Screen.DetailB.route) {
             DetailScreenB(navController, sharedViewModel)
         }
+
+
 
         composable(
             route = Screen.Detail.route,

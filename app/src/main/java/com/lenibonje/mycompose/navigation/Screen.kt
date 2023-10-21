@@ -9,6 +9,8 @@ const val ROOT_ROUTE = "root"
 sealed class Screen(val route: String) {
 
     object Home: Screen(route = "home_screen")
+
+    object Main: Screen(route = "main_screen")
     object Login: Screen(route = "login_screen")
     object SignUp: Screen(route = "signup_screen")
     object Detail: Screen(route = "detail_screen/$DETAIL_ARG_KEY"){
