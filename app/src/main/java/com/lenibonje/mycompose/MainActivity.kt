@@ -53,6 +53,7 @@ import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import coil.transform.RoundedCornersTransformation
+import com.lenibonje.mycompose.graphs.RootNavigationGraph
 import com.lenibonje.mycompose.navigation.SetUpNavGraph
 import com.lenibonje.mycompose.ui.theme.MyComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,14 +61,13 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    lateinit var navController: NavHostController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MyComposeTheme {
                 // A surface container using the 'background' color from the theme
-                navController = rememberNavController()
-                SetUpNavGraph(navController = navController)
+//                SetUpNavGraph(navController = navController)
+                RootNavigationGraph(navController = rememberNavController())
             }
         }
     }
