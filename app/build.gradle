@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'kotlinx-serialization'
+    id 'com.google.relay'
 }
 
 android {
@@ -23,6 +24,14 @@ android {
         }
 
         buildConfigField("String", "ACCESS_KEY", ACCESS_KEY)
+    }
+
+    sourceSets {
+        main {
+            assets {
+                srcDir('src/main/ui-packages')
+            }
+        }
     }
 
     buildTypes {
