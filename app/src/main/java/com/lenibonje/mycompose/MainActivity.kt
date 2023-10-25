@@ -1,8 +1,16 @@
 package com.lenibonje.mycompose
 
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
 import android.os.Bundle
+import android.os.IBinder
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -48,20 +56,40 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import coil.transform.RoundedCornersTransformation
-import com.lenibonje.mycompose.navigation.SetUpNavGraph
 import com.lenibonje.mycompose.screens.main.MainScreen
+import com.lenibonje.mycompose.service.StopwatchService
 import com.lenibonje.mycompose.ui.theme.MyComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
+@OptIn(ExperimentalAnimationApi::class)
 class MainActivity : ComponentActivity() {
 
-    lateinit var navController: NavHostController
+    private var isBound by mutableStateOf(false)
+    private lateinit var stopwatchService: StopwatchService
+
+    private val connection = object : ServiceConnection {
+        override fun onServiceConnected(className: ComponentName, service: IBinder) {
+            val binder = service as StopwatchService.StopwatchBinder
+            stopwatchService = binder.getService()
+            isBound = true
+        }
+
+        override fun onServiceDisconnected(arg0: ComponentName) {
+            isBound = false
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Intent(this, StopwatchService::class.java).also { intent ->
+            bindService(intent, connection, Context.BIND_AUTO_CREATE)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -69,9 +97,29 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
 //                navController = rememberNavController()
 //                SetUpNavGraph(navController = navController)
-                MainScreen()
+                if (isBound) {
+                    MainScreen(stopwatchService = stopwatchService)
+                }
             }
         }
+        requestPermissions(android.Manifest.permission.POST_NOTIFICATIONS)
+    }
+
+    private fun requestPermissions(vararg permissions: String) {
+        val requestPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { result ->
+            result.entries.forEach {
+                Log.d("MainActivity", "${it.key} = ${it.value}")
+            }
+        }
+        requestPermissionLauncher.launch(permissions.asList().toTypedArray())
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unbindService(connection)
+        isBound = false
     }
 }
 
