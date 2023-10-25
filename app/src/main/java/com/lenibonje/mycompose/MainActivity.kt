@@ -54,6 +54,7 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import coil.transform.RoundedCornersTransformation
 import com.lenibonje.mycompose.navigation.SetUpNavGraph
+import com.lenibonje.mycompose.screens.main.MainScreen
 import com.lenibonje.mycompose.ui.theme.MyComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -66,8 +67,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyComposeTheme {
                 // A surface container using the 'background' color from the theme
-                navController = rememberNavController()
-                SetUpNavGraph(navController = navController)
+//                navController = rememberNavController()
+//                SetUpNavGraph(navController = navController)
+                MainScreen()
             }
         }
     }
