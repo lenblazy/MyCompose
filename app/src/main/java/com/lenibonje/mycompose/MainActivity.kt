@@ -54,6 +54,7 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import coil.transform.RoundedCornersTransformation
 import com.lenibonje.mycompose.navigation.SetUpNavGraph
+import com.lenibonje.mycompose.screens.gallery.GalleryScreen
 import com.lenibonje.mycompose.screens.lottie.LottieScreen
 import com.lenibonje.mycompose.screens.main.MainScreen
 import com.lenibonje.mycompose.ui.theme.MyComposeTheme
@@ -77,7 +78,8 @@ class MainActivity : ComponentActivity() {
 //                navController = rememberNavController()
 //                SetUpNavGraph(navController = navController)
 //                MainScreen()
-                LottieScreen()
+//                LottieScreen()
+                GalleryScreen()
             }
         }
     }
